@@ -6,29 +6,38 @@
 /*   By: nouhaddo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 15:49:05 by nouhaddo          #+#    #+#             */
-/*   Updated: 2018/12/09 21:36:39 by nouhaddo         ###   ########.fr       */
+/*   Updated: 2018/12/22 19:48:24 by nouhaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puissance4.h"
 
-void	ft_print_usage(void)
-{
-	ft_putstr("usage : ./puissance4 rows columns\n");
-	ft_putstr("          rows > 5    columns > 6\n");
-}
-
-void	ft_print_line(int len)
+void		ft_print_line(int len)
 {
 	while (len-- > 0)
 		ft_putstr("+ - ");
 	ft_putstr("+\n");
 }
 
-void	ft_print_board(char **board, int rows, int cols)
+void		ft_print_numbers(char **board, int rows, int cols)
 {
-	int row;
-	int col;
+	int		i;
+
+	i = 0;
+	ft_print_line(cols);
+	while (i < cols)
+	{
+		(i < 99) ? ft_putstr("  ") : ft_putstr(" ");
+		ft_putnbr(++i);
+		(i <= 9) ? ft_putstr(" ") : ft_putstr("");
+	}
+	ft_putstr("\n");
+}
+
+void		ft_print_board(char **board, int rows, int cols)
+{
+	int		row;
+	int		col;
 
 	row = 0;
 	while (row < rows)
@@ -39,8 +48,7 @@ void	ft_print_board(char **board, int rows, int cols)
 		{
 			ft_putstr("| ");
 			if (board[row][col] != ' ')
-				ft_putstr(board[row][col] == 'p' ? RED("X") : YELLOW("O"));	
-			//ft_putwchar((board[row][col] == 'p') ? 9673 : 9680);
+				ft_putstr(board[row][col] == 'p' ? RED("X") : YELLOW("O"));
 			else
 				ft_putchar(' ');
 			ft_putstr(" ");
@@ -49,14 +57,14 @@ void	ft_print_board(char **board, int rows, int cols)
 		ft_putstr("|\n");
 		row++;
 	}
-	ft_print_line(cols);
+	ft_print_numbers(board, rows, cols);
 }
 
-char		**initializeBoard(int rows, int cols)
+char		**initializeboard(int rows, int cols)
 {
-	char **board;
-	int i;
-	int j;
+	char	**board;
+	int		i;
+	int		j;
 
 	i = 0;
 	board = (char**)malloc(rows * sizeof(char*));
@@ -71,16 +79,17 @@ char		**initializeBoard(int rows, int cols)
 	return (board);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
-	int rows;
-	int cols;
-	char **board;
-	char s;
+	int		rows;
+	int		cols;
+	char	**board;
+	char	s;
 
-	if (ac == 3 && (rows = ft_atoi(av[1])) > 5 && (cols = ft_atoi(av[2])) > 6)
+	if (ac == 3 && (rows = ft_atoi(av[1])) > 5 &&
+			(cols = ft_atoi(av[2])) > 6)
 	{
-		board = initializeBoard(rows, cols);
+		board = initializeboard(rows, cols);
 		ft_print_board(board, rows, cols);
 		if ((s = ft_play_with_omar(board, rows, cols)))
 		{
@@ -91,6 +100,9 @@ int		main(int ac, char **av)
 			ft_putstr("Game over with Draw\n");
 	}
 	else
-		ft_print_usage();
+	{
+		ft_putstr("usage : ./puissance4 rows columns\n");
+		ft_putstr("          rows > 5    columns > 6\n");
+	}
 	return (0);
 }

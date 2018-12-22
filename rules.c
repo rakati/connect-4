@@ -6,7 +6,7 @@
 /*   By: nouhaddo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 19:38:15 by nouhaddo          #+#    #+#             */
-/*   Updated: 2018/12/09 21:33:09 by nouhaddo         ###   ########.fr       */
+/*   Updated: 2018/12/22 21:21:13 by nouhaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,20 @@ char	ft_check_winer(char **b, int rows, int cols)
 		while (c < cols)
 		{
 			if (c + 3 < cols && b[r][c] != ' ')
-				if (b[r][c] == b[r][c + 1] && b[r][c + 1] == b[r][c + 2] &&\
+				if (b[r][c] == b[r][c + 1] && b[r][c + 1] == b[r][c + 2] &&
 						b[r][c + 2] == b[r][c + 3])
 					return (b[r][c]);
 			if (r + 3 < rows && b[r][c] != ' ')
-				if (b[r][c] == b[r + 1][c] && b[r + 1][c] == b[r + 2][c] &&\
+				if (b[r][c] == b[r + 1][c] && b[r + 1][c] == b[r + 2][c] &&
 						b[r + 2][c] == b[r + 3][c])
 					return (b[r][c]);
 			if ((r + 3) < rows && (c + 3) < cols && b[r][c] != ' ')
-				if (b[r][c] == b[r + 1][c + 1] &&\
-					   	b[r][c] == b[r + 2][c + 2] &&
+				if (b[r][c] == b[r + 1][c + 1] && b[r][c] == b[r + 2][c + 2] &&
 						b[r][c] == b[r + 3][c + 3])
 					return (b[r][c]);
-			if (r - 3 >= 0 && c - 3 >= 0 && b[r][c] != ' ')
-				if (b[r][c] == b[r - 1][c - 1] &&
-						b[r - 1][c - 1] == b[r - 2][c + 2] &&
-						b[r - 2][c - 2] == b[r - 3][c - 3])
+			if (r + 3 <= rows && c - 3 >= 0 && b[r][c] != ' ')
+				if (b[r][c] == b[r + 1][c - 1] && b[r][c] == b[r + 2][c - 2] &&
+						b[r][c] == b[r + 3][c - 3])
 					return (b[r][c]);
 			c++;
 		}
