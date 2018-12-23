@@ -6,7 +6,7 @@
 /*   By: nouhaddo <nouhaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 15:49:05 by nouhaddo          #+#    #+#             */
-/*   Updated: 2018/12/23 21:33:17 by nouhaddo         ###   ########.fr       */
+/*   Updated: 2018/12/23 22:59:51 by nouhaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		ft_print_line(int len)
 	ft_putstr("+\n");
 }
 
-void		ft_print_numbers(char **board, int rows, int cols)
+void		ft_print_numbers(int cols)
 {
 	int		i;
 
@@ -57,7 +57,7 @@ void		ft_print_board(char **board, int rows, int cols)
 		ft_putstr("|\n");
 		row++;
 	}
-	ft_print_numbers(board, rows, cols);
+	ft_print_numbers(cols);
 }
 
 char		**initializeboard(int rows, int cols)

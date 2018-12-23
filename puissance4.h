@@ -6,7 +6,7 @@
 /*   By: nouhaddo <nouhaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 15:36:52 by nouhaddo          #+#    #+#             */
-/*   Updated: 2018/12/23 21:01:30 by nouhaddo         ###   ########.fr       */
+/*   Updated: 2018/12/23 23:07:13 by nouhaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <sys/uio.h>
 
 void	ft_print_line(int len);
-void	ft_print_numbers(char **board, int rows, int cols);
+void	ft_print_numbers(int cols);
 void	ft_print_board(char **board, int rows, int cols);
 char	**initializeBoard(int rows, int cols);
 
@@ -31,9 +31,9 @@ char	**initializeBoard(int rows, int cols);
 ** rules 
 */
 
-int		ft_valid_choice(int choice, char **board, int rows, int cols, char p);
+int		ft_valid_choice(int choice, char **board, int rows, int cols);
 char	ft_check_winer(char **board, int rows, int cols);
-int		ft_finished(char **board, int rows, int cols);
+int		ft_finished(char **board, int cols);
 void	ft_player(char **board, int rows, int cols);
 char	play_loop(char **board, int rows, int cols);
 
@@ -47,6 +47,38 @@ typedef struct s_choice
 	char		c;
 }				t_choice;
 
-void		ft_ai_player(char **board, int rows, int cols);
+void	ft_ai_player(char **board, int rows, int cols);
+
+/*
+** tools1
+*/
+
+int		check_right(char **b, int cols, t_choice p);
+int		check_down(char **b, int rows, t_choice p);
+int		check_right_down(char **b, int rows, int cols, t_choice p);
+int		check_left_down(char **b, int rows, int cols, t_choice p);
+int		check_right_up(char **b, int rows, int cols, t_choice p);
+
+/*
+** tools2
+*/
+
+int		get_score(char **board, int rows, int cols, t_choice pos);
+
+/*
+** ft_ai_player
+*/
+
+void	ft_ai_player(char **board, int rows, int cols);
+
+/*
+** ai_medium
+*/
+
+int		check_left_up(char **b, int rows, int cols, t_choice p);
+int		row_to_col(char **b, int rows, int col);
+int		one_step_to_win(char **board, int rows, int cols);
+int		stop_winer(char **board, int rows, int cols);
+int		best_position(char **board, int rows, int cols);
 
 #endif
