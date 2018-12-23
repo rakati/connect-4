@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   puissance4.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nouhaddo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nouhaddo <nouhaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 15:36:52 by nouhaddo          #+#    #+#             */
-/*   Updated: 2018/12/09 20:59:24 by nouhaddo         ###   ########.fr       */
+/*   Updated: 2018/12/23 21:01:30 by nouhaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@
 #include <sys/types.h>
 #include <sys/uio.h>
 
-void	ft_putwchar(int c);
-void	ft_print_usage(void);
 void	ft_print_line(int len);
+void	ft_print_numbers(char **board, int rows, int cols);
 void	ft_print_board(char **board, int rows, int cols);
 char	**initializeBoard(int rows, int cols);
 
@@ -35,6 +34,19 @@ char	**initializeBoard(int rows, int cols);
 int		ft_valid_choice(int choice, char **board, int rows, int cols, char p);
 char	ft_check_winer(char **board, int rows, int cols);
 int		ft_finished(char **board, int rows, int cols);
-char	ft_play_with_omar(char **board, int rows, int cols);
+void	ft_player(char **board, int rows, int cols);
+char	play_loop(char **board, int rows, int cols);
+
+/*
+** struct
+*/
+typedef struct s_choice
+{
+	int			col;
+	int			row;
+	char		c;
+}				t_choice;
+
+void		ft_ai_player(char **board, int rows, int cols);
 
 #endif

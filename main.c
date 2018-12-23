@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nouhaddo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nouhaddo <nouhaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 15:49:05 by nouhaddo          #+#    #+#             */
-/*   Updated: 2018/12/22 19:48:24 by nouhaddo         ###   ########.fr       */
+/*   Updated: 2018/12/23 21:33:17 by nouhaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		ft_print_board(char **board, int rows, int cols)
 		{
 			ft_putstr("| ");
 			if (board[row][col] != ' ')
-				ft_putstr(board[row][col] == 'p' ? RED("X") : YELLOW("O"));
+				ft_putstr(board[row][col] == 'X' ? RED("X") : YELLOW("O"));
 			else
 				ft_putchar(' ');
 			ft_putstr(" ");
@@ -67,7 +67,7 @@ char		**initializeboard(int rows, int cols)
 	int		j;
 
 	i = 0;
-	board = (char**)malloc(rows * sizeof(char*));
+	board = (char**)malloc((rows + 1) * sizeof(char*));
 	while (i < rows)
 	{
 		board[i] = (char*)malloc((cols + 1) * sizeof(char*));
@@ -76,6 +76,7 @@ char		**initializeboard(int rows, int cols)
 			board[i][j++] = ' ';
 		board[i++][j] = '\0';
 	}
+	board[i] = NULL;
 	return (board);
 }
 
@@ -91,11 +92,8 @@ int			main(int ac, char **av)
 	{
 		board = initializeboard(rows, cols);
 		ft_print_board(board, rows, cols);
-		if ((s = ft_play_with_omar(board, rows, cols)))
-		{
-			ft_putstr("the player ");
-			ft_putstr(s == 'p' ? " 1 is the winner\n" : " 2 is the winner\n");
-		}
+		if ((s = play_loop(board, rows, cols)))
+			ft_putstr(s == 'X' ? " YOU WIN\n" : " YOU LOSE\n");
 		else
 			ft_putstr("Game over with Draw\n");
 	}

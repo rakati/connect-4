@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rules.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nouhaddo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nouhaddo <nouhaddo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 19:38:15 by nouhaddo          #+#    #+#             */
-/*   Updated: 2018/12/22 21:21:13 by nouhaddo         ###   ########.fr       */
+/*   Updated: 2018/12/23 21:43:58 by nouhaddo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puissance4.h"
 
-int		ft_valid_choice(int choice, char **board, int rows, int cols,char p)
+int		ft_valid_choice(int choice, char **board, int rows, int cols, char p)
 {
 	int row;
 	if (choice < 0 || choice >= cols)
@@ -74,41 +74,46 @@ int		ft_finished(char **board, int rows, int cols)
 			return (0);
 	return (1);
 }
-
-char	ft_play_with_omar(char **board, int rows, int cols)
+void	ft_player(char **board, int rows, int cols)
 {
-	int r;
 	char choice[10];
 	int n;
+
+	while (1)
+	{
+		ft_putstr("player: enter a column number : ");
+		n = read(0, choice, 9);
+		choice[n] = '\0';
+		if(ft_valid_choice(ft_atoi(choice) - 1, board, rows, cols, 'X'))
+			break;
+		ft_putstr("not valid choice\n");
+	}
+	ft_print_board(board, rows, cols);
+}
+char	play_loop(char **board, int rows, int cols)
+{
+	int r;
 	char s;
 
 	srand(time(NULL));
 	r = rand() % 100;
-	if (1)
+	if (r % 2 == 0)
 		while (!ft_finished(board, rows, cols))
 		{
-			while (1)
-			{
-				ft_putstr("player1: enter a column number : ");
-				n = read(0, choice, 9);
-				choice[n] = '\0';
-				if(ft_valid_choice(ft_atoi(choice) - 1, board, rows, cols, 'p'))
-					break;
-				ft_putstr("not valid choice\n");
-			}
-			ft_print_board(board, rows, cols);
+			ft_player(board, rows, cols);
 			if ((s = ft_check_winer(board, rows, cols)))
 				return (s);
-			while (1)
-			{
-				ft_putstr("player2: enter a column number : ");
-				n = read(0, choice, 9);
-				choice[n] = '\0';
-				if(ft_valid_choice(ft_atoi(choice) - 1, board, rows, cols, 'o'))
-					break;
-				ft_putstr("not valid choice\n");
-			}
-			ft_print_board(board, rows, cols);
+			ft_ai_player(board, rows, cols);
+			if ((s = ft_check_winer(board, rows, cols)))
+				return (s);
+		}
+	else
+		while (!ft_finished(board, rows, cols))
+		{
+			ft_ai_player(board, rows, cols);
+			if ((s = ft_check_winer(board, rows, cols)))
+				return (s);
+			ft_player(board, rows, cols);
 			if ((s = ft_check_winer(board, rows, cols)))
 				return (s);
 		}
